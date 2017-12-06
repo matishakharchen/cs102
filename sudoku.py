@@ -1,6 +1,21 @@
 import math
 import random
 
+def read_sudoku(filename):
+    digits = [c for c in open(filename).read() if c in '123456789.']
+    grid = group(digits, 9)
+    return grid
+
+
+def display(value):
+    for i in range(9):
+        print(value[i][0], value[i][1], value[i][2], "|",
+              value[i][3], value[i][4], value[i][5], "|",
+              value[i][6], value[i][7], value[i][8])
+        if(i == 2) or (i == 5):
+            print("------+-------+------")
+    print()
+
 
 def group(numbers, groups):
     numbers_clone = []
@@ -26,11 +41,6 @@ def group(numbers, groups):
     return numbers_clone
 
 
-def read_sudoku(filename):
-    """ Прочитать Судоку из указанного файла """
-    digits = [c for c in open(filename).read() if c in '123456789.']
-    grid = group(digits, 9)
-    return grid
 
 
 def get_row(values, pos):
@@ -52,14 +62,7 @@ def get_block(values, pos):
     return numb
 
 
-def display(value):
-    for i in range(9):
-        print(value[i][0], value[i][1], value[i][2], "|",
-              value[i][3], value[i][4], value[i][5], "|",
-              value[i][6], value[i][7], value[i][8])
-        if(i == 2) or (i == 5):
-            print("------+-------+------")
-    print()
+
 
 
 def find_empos(grid):
@@ -123,15 +126,7 @@ def check_solution(grid):
     return True
  
 
-def dele(grid,n):
-    i = 81
-    while i != n:
-        x = random.randrange(9)
-        y = random.randrange(9)
-        if grid[x][y] != ".":
-            grid[x][y] = "."
-            i -= 1
-    return grid
+
 
 def generate(n):
     a = read_sudoku("s.txt")  
@@ -143,3 +138,13 @@ def generate(n):
     global flag
     flag = False
     return a
+
+def dele(grid,n):
+    i = 81
+    while i != n:
+        x = random.randrange(9)
+        y = random.randrange(9)
+        if grid[x][y] != ".":
+            grid[x][y] = "."
+            i -= 1
+    return grid
