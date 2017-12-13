@@ -7,7 +7,7 @@ def read_sudoku(filename):
     return grid
 
 
-def display(value):
+def display(values):
     for i in range(9):
         print(value[i][0], value[i][1], value[i][2], "|",
               value[i][3], value[i][4], value[i][5], "|",
@@ -17,30 +17,13 @@ def display(value):
     print()
 
 
-def group(numbers, groups):
-    numbers_clone = []
-    a = len(numbers)
-    if a == groups:
-        for number in numbers:
-            numbers_clone.append([number])
-    if a > groups:
-        b = math.ceil(a / groups)
-        for i in range(groups - 1):
-            numbers_clone.append(numbers[: b])
-            del numbers[: b]
-        numbers_clone.append(numbers[:])
-    if a < groups:
-        for i in range(a // 2):
-            numbers_clone.append(numbers[: 2])
-            del numbers[: 2]
-        if numbers:
-            numbers_clone.append(numbers)
-            groups -= 1
-        for i in range(groups - (a // 2)):
-            numbers_clone.append([])
-    return numbers_clone
-
-
+def group(values, n):
+    Matrix = []
+    For i in range(len(values) // n)
+        For j in range(n * i: n * i + n)
+    Matrix.append([])
+    Matrix = matrix[i].append(j)
+    return Matrix
 
 
 def get_row(values, pos):
@@ -62,17 +45,14 @@ def get_block(values, pos):
     return numb
 
 
-
-
-
-def find_empos(grid):
+def find_empty_positions (grid):
     for i in range(len(grid)):
         if (grid[i].count(".") != 0):
             return (i, grid[i].index("."))
     return ()
 
 
-def find_posval(grid, pos):
+def find_possible_values (grid, pos):
     numb = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     row = get_row(grid, pos)
     col = get_col(grid, pos)
@@ -88,9 +68,6 @@ def find_posval(grid, pos):
             if str(i) in block[k]:
                 numb.remove(i)
     return numb
-
-
-flag = False
 
 
 def solve(grid):
@@ -126,8 +103,6 @@ def check_solution(grid):
     return True
  
 
-
-
 def generate(n):
     a = read_sudoku("s.txt")  
     b = [(0,0), (1,3), (3,1), (4,4), (5,7), (7,5), (2,6), (6,2), (8,8)]
@@ -135,16 +110,5 @@ def generate(n):
         a[pair[0]][pair[1]]=str(random.randrange(1,10))
     a = solve(a)
     a = dele(a,n)
-    global flag
-    flag = False
     return a
 
-def dele(grid,n):
-    i = 81
-    while i != n:
-        x = random.randrange(9)
-        y = random.randrange(9)
-        if grid[x][y] != ".":
-            grid[x][y] = "."
-            i -= 1
-    return grid
