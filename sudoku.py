@@ -16,14 +16,27 @@ def display(values):
             print("------+-------+------")
     print()
 
-
-def group(values, n):
-    Matrix = []
-    For i in range(len(values) // n)
-        For j in range(n * i: n * i + n)
-    Matrix.append([])
-    Matrix = matrix[i].append(j)
-    return Matrix
+    numbers_clone = []
+    a = len(numbers)
+    if a == groups:
+        for number in numbers:
+            numbers_clone.append([number])
+    if a > groups:
+        b = math.ceil(a / groups)
+        for i in range(groups - 1):
+            numbers_clone.append(numbers[: b])
+            del numbers[: b]
+        numbers_clone.append(numbers[:])
+    if a < groups:
+        for i in range(a // 2):
+            numbers_clone.append(numbers[: 2])
+            del numbers[: 2]
+        if numbers:
+            numbers_clone.append(numbers)
+            groups -= 1
+        for i in range(groups - (a // 2)):
+            numbers_clone.append([])
+    return numbers_clone
 
 
 def get_row(values, pos):
