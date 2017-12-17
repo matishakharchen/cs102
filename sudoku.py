@@ -16,27 +16,29 @@ def display(values):
             print("------+-------+------")
     print()
 
-    numbers_clone = []
-    a = len(numbers)
+
+    def group(values, groups):
+    values_clone = []
+    a = len(values)
     if a == groups:
-        for number in numbers:
-            numbers_clone.append([number])
+        for number in values:
+            values_clone.append([number])
     if a > groups:
         b = math.ceil(a / groups)
         for i in range(groups - 1):
-            numbers_clone.append(numbers[: b])
-            del numbers[: b]
-        numbers_clone.append(numbers[:])
+            values_clone.append(values[: b])
+            del values[: b]
+        values_clone.append(values[:])
     if a < groups:
         for i in range(a // 2):
-            numbers_clone.append(numbers[: 2])
-            del numbers[: 2]
-        if numbers:
-            numbers_clone.append(numbers)
+            values_clone.append(values[: 2])
+            del values[: 2]
+        if values:
+            values_clone.append(values)
             groups -= 1
         for i in range(groups - (a // 2)):
-            numbers_clone.append([])
-    return numbers_clone
+            values_clone.append([])
+    return values_clone
 
 
 def get_row(values, pos):
