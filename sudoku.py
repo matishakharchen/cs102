@@ -7,7 +7,7 @@ def read_sudoku(filename):
     return grid
 
 
-def display(values):
+def display(value):
     """Вывод Судоку """
     for i in range(9):
         print(value[i][0], value[i][1], value[i][2], "|",
@@ -18,7 +18,7 @@ def display(values):
     print()
 
 
-    def group(values, groups):
+def group(values, n):
         """
             Сгруппировать значения values в список, состоящий из списков по n элементов
             >>> group([1,2,3,4], 2)
@@ -26,7 +26,7 @@ def display(values):
             >>> group([1,2,3,4,5,6,7,8,9], 3)
             [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
             """
-    return [values[i:i + n] for i in range(0, len(values), n)]
+        return [values[i:i + n] for i in range(0, len(values), n)]
 
 def get_row(values, pos):
     """ Возвращает все значения для номера строки, указанной в pos
@@ -97,21 +97,11 @@ def find_possible_values (grid, pos):
         >>> values == {'2', '5', '9'}
         True
         """
-    numb = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    row = get_row(grid, pos)
-    col = get_col(grid, pos)
-    block = get_block(grid, pos)
-    for i in range(1, 10):
-        if str(i) in row:
-            numb.remove(i)
-            continue
-        if str(i) in col:
-            numb.remove(i)
-            continue
-        for k in range(3):
-            if str(i) in block[k]:
-                numb.remove(i)
-    return numb
+    number = set('123456789')
+    row = set(get_row(grid, pos))
+    col = set(get_col(grid, pos))
+    block = set(get_block(grid, pos))
+    return number - set.union(block, row, col)
 
 
 def solve(grid):
@@ -126,11 +116,11 @@ def solve(grid):
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
-    b = find_empos(grid)
+    b = find_empty_positions(grid)
     if b == ():
         return grid
     else:
-        a = find_posval(grid, b)
+        a = find_empty_positions(grid)
         if a == []:
             return None
         for i in a:
