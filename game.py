@@ -80,7 +80,7 @@ class GameOfLife:
 
             # print(row, elem, y,x, end='\n')
         
-        #pygame.display.set_caption('Game of Life: {}, {}, {}'.format(total, alive, nd))
+        # pygame.display.set_caption('Game of Life: {}, {}, {}'.format(total, alive, nd))
 
     def get_neighbours(self, cell):
         row, col = cell
@@ -88,16 +88,16 @@ class GameOfLife:
         pos = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
         for j in pos:
             if (0 <= row + j[0] < self.height // self.cell_size) and (0<=col+j[1]<self.width//self.cell_size):
-                #print(row, col, row+j[0],col+j[1], 'T')
+                # print(row, col, row+j[0],col+j[1], 'T')
                 neighbours_list.append(self.clist[row+j[0]][col+j[1]])
             else:
-                #print(row, col, row+j[0],col+j[1], 'F')
+                # print(row, col, row+j[0],col+j[1], 'F')
                 neighbours_list.append(0)
         return neighbours_list
 
     def update_cell_list(self, cells):
         y, x = 0, 0
-        #z=0
+        # z=0
         updated_cell_list = []
         cell_list = cells.copy()
         for i in range(len(cell_list)):
@@ -122,8 +122,8 @@ class GameOfLife:
                         updated_cell_list[y][x] = 0
                         # pp('0-0')
                 x += 1
-                #print(y,x)
-                #z +=1
+                # print(y,x)
+                # z +=1
             x = 0
             y += 1
 
